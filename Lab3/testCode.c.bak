@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include "stringDemo5.c"
+
+int main(int argc, char * argv[])
+{
+	char first_string[100] = {"This is the first string"};
+	char second_string[200] = {"This is the second string"};
+	char lowcap_string[200] = {"this is the second string"};
+	char short_string[200] = {"this is the third string"};
+	
+	//Testing strlen
+	fprintf(stdout, "%d\n", strlen(first_string));
+
+	//Testing strcmp
+	fprintf(stdout, "%d\n", strcmp(second_string, short_string));
+	fprintf(stdout, "%d\n", strcmp(first_string, second_string));
+	fprintf(stdout, "%d\n", strcmp(lowcap_string, second_string));
+	
+	//Testing stricmp
+	fprintf(stdout, "%d\n", stricmp(first_string, second_string));
+	fprintf(stdout, "%d\n", stricmp(second_string, first_string));
+	fprintf(stdout, "%d\n", stricmp(second_string, lowcap_string));
+	
+	//Testing strcat
+	fprintf(stdout, "%d\n", strcat(first_string, second_string));
+	fprintf(stdout, "%d\n", strcat(lowcap_string, second_string));
+	
+	//Testing strdup
+	fprintf(stdout, "%d\n", strdup(first_string));
+	fprintf(stdout, "%d\n", strdup(""));
+
+	return 0;
+}

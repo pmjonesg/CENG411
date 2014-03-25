@@ -1,0 +1,32 @@
+#!/bin/bash
+# File: tScript.sh
+# Course: CENG411
+# Author: Peter Jones
+# Date: Thursday Feb 02/27/14, 2014   02:13 AM
+
+echo "Testing --all flag"
+lss --all lss
+echo ""
+echo "Testing -a flag"
+lss -a lss
+echo ""
+echo "Testing -i flag"
+lss -i lss
+echo ""
+echo "Testing -L flag"
+lss -L lss
+echo ""
+echo "Testing -s flag"
+lss -s lss
+echo ""
+echo "Testing -F flag"
+lss -F lss lss
+echo ""
+echo "Testing missing arguments"
+lss -F 
+echo ""
+echo "Testing no flags"
+lss
+echo ""
+echo "Testing perror by giving wrong path"
+lss -F NotAfile NotAfile

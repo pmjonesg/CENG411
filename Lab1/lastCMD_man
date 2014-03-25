@@ -1,0 +1,31 @@
+.TH man 8 "January 16, 2014" "1.0" "lastCMD man page"
+.SH NAME
+lastCMD - This program detects if flags have been set or not and reports the result.
+.SH SYNOPSIS
+lastCMD [-n num] [-f file] [-d] [-a] [-R] [-w]
+.SH DESCRIPTION
+This command detects if flags have been set and reports the result. Then it prints all arguments used and how many aren't flags.
+.SH OPTIONS
+.TP
+-n
+	Takes an argument. 
+.TP
+-f
+	Takes an argument. 
+.TP
+-d
+	Can be either true or false.
+.TP
+-a
+	Can be either true or false.
+.TP
+-R
+	Can be either true or false.
+.TP
+-w
+	Can be either true or false.
+.SH SEE ALSO
+.SH BUGS
+It will take a flag as an argument for options -n and -f if not separated by a space.
+.SH AUTHOR
+Peter Jones (pmjonesg@gmail.com)
