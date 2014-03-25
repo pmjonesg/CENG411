@@ -41,14 +41,23 @@ int main(int argc, char * argv[],char * envp[])
   struct PERSON person;
   char response[512];
 
-  FILE *myDB=fopen("myDB","r");
-  fprintf(stdout,"The size of an PERSON is: %d\n\n",sizeof person);
+  FILE *myDB=fopen("myDB","a+");
+  makePerson(&person);
+  fwrite(&person, sizeof(person),1, myDB);
+	fseek(myDB, 0L, SEEK_END);
+	int sz = ftell(myDB);
+	fprintf(stdout, "Size of myDB is: %d\n", sz);
+	person.recordNo = (int) (sz/60);
+  displayPerson(person);
+  sprintf(response, "%d", sz/60);
+
+  fprintf(stdout,"The size of an PERSON is: %lu\n\n",sizeof person);
   while(true)
   {
     fprintf(stdout,"Enter a record number. (-1 exits): ");
     fflush(stdout);
     fgets(response,10,stdin);
-    if(atoi(response)<0) break;
+		if(atoi(response)<0) break;
     fseek(myDB, atoi(response)*sizeof person, SEEK_SET);
     fprintf(stdout,"\nPosition in file before reading it: %ld\n", ftell(myDB));
     fread(&person,sizeof person,1,myDB);
