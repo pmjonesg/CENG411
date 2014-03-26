@@ -3,16 +3,14 @@
 #include <signal.h>
 #include <unistd.h>
 #include "person.h"
-#include "createPeople.c"
+#include "findPerson.c"
 
 static FILE *myDB;
 
 void firstInterrupt(int signum)
 {
-  struct PERSON firstRec;
+ findPerson();
 
-	fread(&firstRec, sizeof(firstRec), 1, myDB);
-	displayPerson(firstRec);
 }
 
 int main(int argc, char **argv)
@@ -21,8 +19,8 @@ int main(int argc, char **argv)
   FILE *myDB = fopen("myDB", "r");
 
   signal(SIGINT, firstInterrupt);
-	raise(SIGINT);
 
+	kill(getpid(), SIGINT);
   fclose(myDB);
 
 	for(;;) sleep(1);
