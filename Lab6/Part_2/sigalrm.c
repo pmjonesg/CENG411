@@ -20,15 +20,23 @@ void shutdown(int signum)
 	strftime(timeStr, sizeof(timeStr), "%H:%M:%S", current_Time);
 	fprintf(stdout, "The timer went off at: %s", timeStr);
 
+	pid_t childPID = fork();
 
+	if(childPID >= 0)
+	{
+		if(childPID == 0)
+		{
 	signal(SIGALRM, restart);
 	getitimer(restartTime, &restartAlarm);
 	restartAlarm.it_value.tv_sec=2;
 	restartAlarm.it_value.tv_usec=33333;
 	setitimer(restartTime, &restartAlarm, NULL);
-
-	raise(SIGSTOP);
-
+	}
+		else
+		{
+	    kill(getpid(), SIGTSTP);
+		}
+	}
 }
 
 void restart(int signum)
