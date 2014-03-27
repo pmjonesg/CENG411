@@ -45,29 +45,29 @@ int main(int argc, char * argv[],char * envp[])
   struct PERSON person;
   char response[512];
 
-	/* Open file which already contains data */
+  /* Open file which already contains data */
   FILE *myDB=fopen("myDB","a+");
 
-	/* Create a random person (will always create the same person as the first time) */
+  /* Create a random person (will always create the same person as the first time) */
   makePerson(&person);
   fwrite(&person, sizeof(person),1, myDB);
 
   /* Get position of cursor */
-	long sz = ftell(myDB);
-	//fprintf(stdout, "Size of myDB is: %ld\n", sz);
-	person.recordNo = (int) (sz/ sizeof(person));
-	fprintf(stdout, "Person created\n");
+  long sz = ftell(myDB);
+  //fprintf(stdout, "Size of myDB is: %ld\n", sz);
+  person.recordNo = (int) (sz/ sizeof(person));
+  fprintf(stdout, "Person created\n");
   displayPerson(person);
 
-	/* Print firt record read (should be the first one */
-	fprintf(stdout, "\nRecord read");
+  /* Print firt record read (should be the first one */
+  fprintf(stdout, "\nRecord read");
   fseek(myDB, sz, SEEK_SET);
   fprintf(stdout,"\nPosition in file before reading it: %ld\n", ftell(myDB));
   fread(&person,sizeof person,1,myDB);
   displayPerson(person);
   fprintf(stdout,"Position in file after reading it: %ld\n\n", ftell(myDB));
     
-	/* Close file and end program */
+  /* Close file and end program */
   fclose(myDB);  
 
   return 0;
