@@ -64,6 +64,7 @@ int main(int argc, char * argv[],char * envp[])
   /* Declare when to invoke handler */
   signal(SIGHUP, h);
   raise(SIGHUP);
+  raise(SIGHUP);
 
   return 0;
 }
