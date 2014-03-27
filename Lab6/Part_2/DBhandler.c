@@ -1,3 +1,14 @@
+/*
+ *  File:    DBhandler.c
+ *  Course:  CENG411
+ *  Author:  Peter Jones
+ *  Date:    Wednesday 26 March, 2014
+ *  Purpose: This program open myDB and prints the current record for the first signal given,
+ *           advances to the next record given a second signal, and goes back one record given
+ *           a third signal
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -5,47 +16,71 @@
 #include "person.h"
 #include "findPerson.c"
 
+/* Static variables to keep track of offset and file */
 static int offset = 60;
+static int previous = 60;
 static FILE *myDB;
 
+/* This handler reads in the first record */
 void firstInterrupt(int signum)
 {
- findPerson(0);
+	findPerson(0);
 }
 
+/* This handler advances one record */
 void secondInterrupt(int signum)
 {
-  findPerson(offset);
+	findPerson(offset);
 	offset += 60;
 }
 
+/* This handler goes back to the previous record */
 void thirdInterrupt(int signum)
 {
-  static int previous = 60;
-	findPerson(offset - previous);
+
+	/* Check for first record */
 	if(offset != 60)
-	  previous += 60;
-	else ;
+	{
+		previous += 60;
+		findPerson(offset - previous);
+	}
+	else
+		findPerson(0);
+
+	/* Terminate program after printing a previous record */
+	raise(SIGKILL);
 }
 
+/* Start of main program */
 int main(int argc, char **argv)
 {
+	/* Declare interrupts */
 	void firstInterrupt(int);
 	void secondInterrupt(int);
-  FILE *myDB = fopen("myDB", "r");
+	void thirdInterrupt(int);
+	
+	/* Open file to be read */
+	FILE *myDB = fopen("myDB", "r");
 
-  signal(SIGINT, firstInterrupt);
-	kill(getpid(), SIGINT);
+	/* Show initial record */
+	signal(SIGILL, firstInterrupt);
+	kill(getpid(), SIGILL);
 
-	signal(SIGINT, secondInterrupt);
-	raise(SIGINT);
+	/* Advance 2 records */
+	signal(SIGSEGV, secondInterrupt);
+	raise(SIGSEGV);
 
-	signal(SIGINT, thirdInterrupt);
-	raise(SIGINT);
+	signal(SIGSEGV, secondInterrupt);
+	raise(SIGSEGV);
 
-  fclose(myDB);
+	/* Go back one record */
+	signal(SIGTERM, thirdInterrupt);
+	raise(SIGTERM);
+
+	/* Close file */
+	fclose(myDB);
 
 	for(;;) sleep(1);
 
-  return 0;
+	return 0;
 }
