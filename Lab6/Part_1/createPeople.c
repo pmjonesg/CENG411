@@ -1,12 +1,12 @@
 /*
-   File: createPeople.c
-   Course: CENG411
-   Author: Leon King,J230,x4200
-   Date: Monday January 29, 2007
-   */
+ *  File: createPeople.c
+ *  Course: CENG411
+ *  Author: Leon King,J230,x4200
+ *  Date: Monday January 29, 2007
+ */
 
 #include <stdio.h>
-#include <stdlib.h> //For the rand() function
+#include <stdlib.h>  /* For the rand() function */
 #include <time.h>
 #include <string.h>
 #include "person.h"
@@ -22,7 +22,7 @@ char role[][25]={"Captain","Ensign","Red Shirt","Red Shirt","Red Shirt",
                  "Crew","Transporter Chief","Morale Officer","Crew",
                  "Crew","Navigator","Engineer"};
 
-//Function using random numbers to generate a person
+/* Function using random numbers to generate a person */
 void makePerson(struct PERSON *p)
 {
   strcpy(p->firstName,names[rand()%sizeof(names)/sizeof(names[0])]);
@@ -39,8 +39,11 @@ int main(int argc, char * argv[])
   long recSize, recNo,nRecords;
   int i;
 
-  if(argc<2) {fprintf(stdout,"Usage:  createPeople nPeople mode\n");
-               exit(1); }
+  if(argc<2) 
+  {
+    fprintf(stdout,"Usage:  createPeople nPeople mode\n");
+    exit(1); 
+  }
 
   FILE *mydb=fopen("myDB",argc>2 ? argv[2] : "w"); 
   
@@ -50,7 +53,7 @@ int main(int argc, char * argv[])
   
   if(!mydb) { perror("Failure to open myDB"); exit(1);}
  
-  //Determine how many records to create
+  /* Determine how many records to create */
   if(argc==1) nRecords=10;
     else nRecords=atoi(argv[1]);
 
@@ -63,7 +66,7 @@ int main(int argc, char * argv[])
      //fprintf(stdout,"%s,%s,%d,%c,%s\n", sample.firstName, 
      //      sample.lastName,sample.age,sample.sex,sample.position);
      fwrite(&sample, sizeof(sample),1, mydb);
-    }
+  }
   fclose(mydb);
   return 0;
 }
