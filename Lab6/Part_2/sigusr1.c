@@ -3,6 +3,9 @@
  * Course:  CENG411
  * Author:  Peter Jones
  * Date:    Wednesday 26, 2014
+ * Purpose: This program determines the number of processes running in the system
+ *          given a SIGUSR1 interrupt, and records the date and # of processes in
+ *          a file called log.txt
  *
  */
 
