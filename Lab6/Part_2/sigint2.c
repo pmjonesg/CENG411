@@ -65,8 +65,5 @@ int main(int argc, char * argv[],char * envp[])
   signal(SIGHUP, h);
   raise(SIGHUP);
 
-  /* Loop to issue an interrupt */
-//  for(;;) sleep(1);
-  
   return 0;
 }
