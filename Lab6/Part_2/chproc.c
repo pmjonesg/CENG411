@@ -53,7 +53,13 @@ int main(int argc, char **argv)
 
 	/* Send signal to create children */
 	signal(SIGINT, h);
-	signal(SIGINT, h);
+
+	for(i = 0; i < 10; i++)
+	{
+		fprintf(stdout, "Loop %d\n", i);
+		raise(SIGINT);
+		sleep(1);
+	}
  
 	return 0;
 }
